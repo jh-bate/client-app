@@ -1,0 +1,17 @@
+{
+  "name": "client-app",
+  "version": "1.0.0",
+  "description": "your suga test client app",
+  "main": "index.js",
+  "author": "tidepool",
+  "license": "BSD2",
+  "dependencies": {
+    "axios": "^0.16.1",
+    "next": "^2.4.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "scripts": {
+    "dev": "next"
+  }
+}
