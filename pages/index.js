@@ -1,6 +1,8 @@
 import React from 'react'
 import AuthService from '../utils/AuthService'
-import DeviceData from '../components/DeviceData'
+import User from '../components/User'
+import Login from '../components/Login'
+import Logout from '../components/Logout'
 import { AUTH_CONFIG } from '../utils/auth0Config';
 
 export default class extends React.Component {
@@ -18,25 +20,38 @@ export default class extends React.Component {
      })
   }
 
-  userData() {
+  user() {
     if (this.state.loggedIn) {
       return (
-        <div><DeviceData userID="423b3dcf31"  accessToken={this.auth.getAccessToken()} /></div>
+        <div><User accessToken={this.auth.getAccessToken()}/></div>
       );
     }
   }
 
   loadTidepoolData() {
     if (this.state.loggedIn) {
-      return this.userData();
+      return (
+        <div>
+          <Logout/>
+          {this.user()}
+        </div>
+      );
     }
     const nonce = Math.random().toString(36).substring(7);
+    //will show the hosted version of "lock" 
     const authURL = `https://tidepool.auth0.com/authorize?scope=${AUTH_CONFIG.scope}&audience=${AUTH_CONFIG.audience}&response_type=${AUTH_CONFIG.responseType}&client_id=${AUTH_CONFIG.clientId}&redirect_uri=${AUTH_CONFIG.redirectUri}&nonce=${nonce}`
+    //will redirect to the hosted tidepool login app
+    //const loginURL = `http://localhost:3007?scope=${AUTH_CONFIG.scope}&audience=${AUTH_CONFIG.audience}&response_type=${AUTH_CONFIG.responseType}&client_id=${AUTH_CONFIG.clientId}&redirect_uri=${AUTH_CONFIG.redirectUri}&nonce=${nonce}`
+    
     return (
-      <a href={authURL}>
+      <a className="login" href={authURL}>
         Connect to Tidepool
       </a>
     );
+
+    // return (
+    //   <Login/>
+    // );
   }
 
   render () {
@@ -55,6 +70,18 @@ export default class extends React.Component {
         }
         .header {
           font: 15px Monaco;
+        }
+        a.login {
+          text-align: center;
+          width: 20%;
+          font: 15px Monaco;
+          background-color: #4CAF50;
+          border: none;
+          color: white;
+          padding: 16px 32px;
+          text-decoration: none;
+          margin: auto;
+          cursor: pointer;
         }
         table {
           font-family: Arial;

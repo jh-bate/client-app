@@ -6,6 +6,7 @@
   "author": "tidepool",
   "license": "BSD2",
   "dependencies": {
+    "auth0-js": "^8.7.0",
     "axios": "^0.16.1",
     "next": "^2.4.0",
     "react": "^15.5.4",

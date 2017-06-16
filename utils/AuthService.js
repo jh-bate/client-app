@@ -7,6 +7,8 @@ export default class AuthService {
   }
 
   handleAuthentication() {
+    console.log('handleAuthentication');
+    console.log(window.location.hash);
     this.extractAccessToken();
     this.extractIDToken();
   }
