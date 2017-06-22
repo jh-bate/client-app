@@ -8,7 +8,7 @@ export default class User extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {profile: {}, data: [], error: ''};
+    this.state = {profile: {}, data: [], dataError: '', profileError: ''};
   }
 
   componentDidMount() {
@@ -25,19 +25,19 @@ export default class User extends React.Component {
         console.log('user profile:', profileData);
         if (profileData && profileData.sub) {
           const userID = profileData.sub.split("|")[1];
-          const url = `http://localhost:8009/data/${userID}`;
+          const url = `https://dev-api.tidepool.org/data/${userID}`;
           axios.get(url, { headers: { Authorization: authStr }})
             .then((response) => {
               this.setState({ data: response.data });
             })
             .catch((error) => {
-              this.setState({ error: error.message });
+              this.setState({ dataError: error.message });
             });
         }
         this.setState({ profile: profileData });
       })
       .catch((error) => {
-        this.setState({ error: error.message });
+        this.setState({ profileError: error.message });
       });
   }
 
@@ -51,12 +51,13 @@ export default class User extends React.Component {
     return <div id="layout-content" className="layout-content-wrapper">
       <div className="header">
         <h3>Profile</h3>
+        <div className="data-error">{ this.state.profileError }</div>
         <hr />
-        <div className="data-error">{ this.state.error }</div>
       </div>
       <div className="user-name">{ this.state.profile.name }</div>
       <div className="header">
         <h3>Device Data</h3>
+        <div className="data-error">{ this.state.dataError }</div>
         <hr />
       </div>
       <div className="user-device-data">{ deviceData }</div>
