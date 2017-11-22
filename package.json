@@ -1,7 +1,7 @@
 {
   "name": "client-app",
   "version": "1.0.0",
-  "description": "your suga test client app",
+  "description": "Tidepool 3rd party client app",
   "main": "index.js",
   "author": "tidepool",
   "license": "BSD2",
@@ -13,6 +13,6 @@
     "react-dom": "^15.5.4"
   },
   "scripts": {
-    "dev": "next"
+    "dev": "next --port 3009"
   }
 }

@@ -1,7 +1,6 @@
 import React from 'react'
 import AuthService from '../utils/AuthService'
 import User from '../components/User'
-import Login from '../components/Login'
 import Logout from '../components/Logout'
 import { AUTH_CONFIG } from '../utils/auth0Config';
 
@@ -27,7 +26,7 @@ export default class extends React.Component {
       );
     }
   }
-
+  
   loadTidepoolData() {
     if (this.state.loggedIn) {
       return (
@@ -38,28 +37,19 @@ export default class extends React.Component {
       );
     }
     const nonce = Math.random().toString(36).substring(7);
-    //will show the hosted version of "lock" 
-    const authURL = `https://tidepool.auth0.com/authorize?scope=${AUTH_CONFIG.scope}&audience=${AUTH_CONFIG.audience}&response_type=${AUTH_CONFIG.responseType}&client_id=${AUTH_CONFIG.clientId}&redirect_uri=${AUTH_CONFIG.redirectUri}&nonce=${nonce}`
-    //will redirect to the hosted tidepool login app
-    const loginURL = `http://localhost:3007?scope=${AUTH_CONFIG.scope}&audience=${AUTH_CONFIG.audience}&response_type=${AUTH_CONFIG.responseType}&client_id=${AUTH_CONFIG.clientId}&redirect_uri=${AUTH_CONFIG.redirectUri}&nonce=${nonce}`
-    
+    const authURL = `https://${AUTH_CONFIG.domain}/authorize?scope=${AUTH_CONFIG.scope}&audience=${AUTH_CONFIG.audience}&response_type=${AUTH_CONFIG.responseType}&client_id=${AUTH_CONFIG.clientId}&redirect_uri=${AUTH_CONFIG.redirectUri}&nonce=${nonce}`
     return (
       <a className="login" href={authURL}>
         Connect to Tidepool
       </a>
     );
-
-    // return (
-    //   <Login/>
-    // );
   }
 
   render () {
-   
     return (
       <div className='app'>
       <div className='header'>
-        <h3>Your Acesulfame K</h3>
+        <h3>Tidepool 3rd Party Client APP</h3>
       </div>
       <div>
         { this.loadTidepoolData() }

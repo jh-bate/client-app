@@ -35,10 +35,7 @@ export default class AuthService {
   }
 
   loggedIn(){
-    if (this.getAccessToken() && this.getIDToken()){
-      return true;
-    }
-    return false;
+    return this.getAccessToken() && this.getIDToken();
   }
 
   getAccessToken(){
